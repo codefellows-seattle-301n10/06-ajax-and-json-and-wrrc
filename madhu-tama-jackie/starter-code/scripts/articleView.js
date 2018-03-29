@@ -110,12 +110,12 @@ articleView.initIndexPage = () => {
   Article.all.forEach(article => {
     $('#articles').append(article.toHtml())
   });
-  $(document).ready(function (){
-    Article.fetchAll();
-    articleView.populateFilters();
-    articleView.handleCategoryFilter();
-    articleView.handleAuthorFilter();
-    articleView.handleMainNav();
-    articleView.setTeasers();
-  });
+  
+  
+  articleView.populateFilters();
+  articleView.handleCategoryFilter();
+  articleView.handleAuthorFilter();
+  articleView.handleMainNav();
+  articleView.setTeasers();
+ 
 };
