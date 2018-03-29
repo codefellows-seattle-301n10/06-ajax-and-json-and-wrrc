@@ -84,7 +84,8 @@
     <script src="scripts/article.js"></script>
     <script src="scripts/articleView.js"></script>
     <script>
-      articleView.initIndexPage();
+      //This fetchAll() is getting all of the blog articles out of hackerIpsum.json through the constructor function and then parsing the retrieved data if it exists in local storage
+      Article.fetchAll()
     </script>
   </body>
 </html>
