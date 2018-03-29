@@ -52,6 +52,14 @@ Article.fetchAll = () => {
     Article.loadAll();
 
   } else {
-  
+    let dataObj = 'data/hackerIpsum.json';
+    $.getJSON(dataObj)
+      .then(articles => {
+        articles.forEach(article => {
+          Article.all.push(new Article(article));
+          console.log(Article.all);
+        })
+      });
+
   }
 }
