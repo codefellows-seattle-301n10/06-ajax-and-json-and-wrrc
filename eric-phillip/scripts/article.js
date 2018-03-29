@@ -12,16 +12,18 @@ function Article (rawDataObj) {
 // REVIEW: Instead of a global `articles = []` array, let's attach this list of all articles directly to the constructor function. Note: it is NOT on the prototype. In JavaScript, functions are themselves objects, which means we can add properties/values to them at any time. In this case, the array relates to ALL of the Article objects, so it does not belong on the prototype, as that would only be relevant to a single instantiated Article.
 Article.all = [];
 
-// COMMENT: Why isn't this method written as an arrow function?
-// PUT YOUR RESPONSE HERE
+// COMMENTED: Why isn't this method written as an arrow function?
+// The function needs a contextual this and with an arrow function, "this"
+//wouldn't exist in the context that we are using it
 Article.prototype.toHtml = function() {
   let template = Handlebars.compile($('#article-template').text());
 
   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
 
-  // COMMENT: What is going on in the line below? What do the question mark and colon represent? How have we seen this same logic represented previously?
+  // COMMENTED: What is going on in the line below? What do the question mark and colon represent? How have we seen this same logic represented previously?
   // Not sure? Check the docs!
-  // PUT YOUR RESPONSE HERE
+  // This is a ternary statement. It is a shorthand for if-else statements to make them
+  //more concise and simple
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   this.body = marked(this.body);
 
@@ -32,8 +34,10 @@ Article.prototype.toHtml = function() {
 
 // REVIEW: This function will take the rawData, how ever it is provided, and use it to instantiate all the articles. This code is moved from elsewhere, and encapsulated in a simply-named function for clarity.
 
-// COMMENT: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
-// PUT YOUR RESPONSE HERE
+// COMMENTED: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
+// Previously it was a separate function called through the rawData but now that the data is loaded into an array
+// of objects, this is grouping up functionality to all of these objectes under the Article class rather than each individual
+// data group getting their own function
 Article.loadAll = articleData => {
   articleData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
@@ -48,6 +52,6 @@ Article.fetchAll = () => {
     Article.loadAll();
 
   } else {
-
+  
   }
 }
