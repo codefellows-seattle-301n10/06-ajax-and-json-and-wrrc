@@ -1,6 +1,6 @@
 'use strict';
 
-function Article (rawDataObj) {
+function Article(rawDataObj) {
   this.author = rawDataObj.author;
   this.authorUrl = rawDataObj.authorUrl;
   this.title = rawDataObj.title;
@@ -15,10 +15,10 @@ Article.all = [];
 // COMMENTED: Why isn't this method written as an arrow function?
 // The function needs a contextual this and with an arrow function, "this"
 //wouldn't exist in the context that we are using it
-Article.prototype.toHtml = function() {
+Article.prototype.toHtml = function () {
   let template = Handlebars.compile($('#article-template').text());
 
-  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+  this.daysAgo = parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000);
 
   // COMMENTED: What is going on in the line below? What do the question mark and colon represent? How have we seen this same logic represented previously?
   // Not sure? Check the docs!
@@ -39,7 +39,7 @@ Article.prototype.toHtml = function() {
 // of objects, this is grouping up functionality to all of these objectes under the Article class rather than each individual
 // data group getting their own function
 Article.loadAll = articleData => {
-  articleData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
+  articleData.sort((a, b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
   articleData.forEach(articleObject => Article.all.push(new Article(articleObject)))
 }
@@ -48,17 +48,20 @@ Article.loadAll = articleData => {
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
   if (localStorage.rawData) {
-
-    Article.loadAll();
+    let rawData = localStorage.getItem('rawData');
+    JSON.parse(rawData);
+    console.log(JSON.parse(rawData), 'FROM LOCAL STORAGE')
+    // Article.loadAll();
 
   } else {
     let dataObj = 'data/hackerIpsum.json';
     $.getJSON(dataObj)
-      .then(articles => {
-        articles.forEach(article => {
-          Article.all.push(new Article(article));
-          console.log(Article.all);
-        })
+      .then(articleData => {
+        Article.loadAll(articleData)
+        localStorage.setItem('rawData', JSON.stringify(articleData));
       });
   }
 }
+
+Article.fetchAll();
+
