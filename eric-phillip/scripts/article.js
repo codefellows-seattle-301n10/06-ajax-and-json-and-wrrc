@@ -50,15 +50,19 @@ Article.fetchAll = () => {
   if (localStorage.rawData) {
     let rawData = JSON.parse(localStorage.getItem('rawData'));
     Article.loadAll(rawData);
-
+    articleView.initIndexPage();
   } else {
     // First we create an object to store the file path
     //then we call the getJSON to retrieve the file
     //and in the promise we take the information from the file and set it to local storage
     let dataObj = 'data/hackerIpsum.json';
     $.getJSON(dataObj)
-      .then(articleData => localStorage.setItem('rawData', JSON.stringify(articleData)));
+      .then(articleData => {
+        localStorage.setItem('rawData', JSON.stringify(articleData));
+        Article.loadAll(articleData);
+        articleView.initIndexPage();
+      });
   }
 }
-Article.fetchAll();
+
 
