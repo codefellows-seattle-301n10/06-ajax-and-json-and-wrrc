@@ -1,4 +1,5 @@
 'use strict';
+const url = 'data/hackerIpsum.json';
 
 function Article (rawDataObj) {
   this.author = rawDataObj.author;
@@ -13,7 +14,7 @@ function Article (rawDataObj) {
 Article.all = [];
 
 // COMMENT: Why isn't this method written as an arrow function?
-// The arrow function would bring about an incorrect context, such as the window object inseatd of Article object.
+// The arrow function would bring about an incorrect context, such as the window object instead of Article object.
 Article.prototype.toHtml = function() {
   let template = Handlebars.compile($('#article-template').text());
 
@@ -44,10 +45,14 @@ Article.loadAll = articleData => {
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
   if (localStorage.rawData) {
-
-    Article.loadAll();
-
+    Article.loadAll(JSON.parse(localStorage.rawData));
+    articleView.initIndexPage();
   } else {
-
+    $.getJSON(url).then(function(data) {
+      localStorage.setItem('rawData', JSON.stringify(data));
+      Article.loadAll(data);
+      articleView.initIndexPage();
+    });
   }
 }
+Article.fetchAll();
