@@ -1,5 +1,4 @@
 'use strict';
-let info;
 const url = 'data/hackerIpsum.json';
 
 function Article (rawDataObj) {
@@ -48,17 +47,19 @@ Article.fetchAll = () => {
   // REVIEWED: What is this 'if' statement checking for? Where was the rawData set to local storage?
 
   if (localStorage.rawData) {
+    let data = JSON.parse(localStorage.getItem('rawData'));
+    Article.loadAll(data);
+    articleView.initIndexPage();
 
-    Article.loadAll();
 //We had to think about it logically, so we basically just thought of a way to get and set.
 
   } else {
     $.getJSON(url)
       .then(results => {
-        info = results;
-        console.log(results[0])
+        Article.loadAll(results);
         localStorage.setItem('rawData', JSON.stringify(results));
+        articleView.initIndexPage();
       });
   }
 }
-Article.fetchAll();
+
