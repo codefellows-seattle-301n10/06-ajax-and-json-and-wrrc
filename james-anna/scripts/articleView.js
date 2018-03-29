@@ -106,7 +106,6 @@ articleView.create = () => {
   $('#article-json').val(`${JSON.stringify(article)},`);
 };
 
-
 articleView.initIndexPage = () => {
   Article.all.forEach(article => {
     $('#articles').append(article.toHtml())
@@ -118,3 +117,7 @@ articleView.initIndexPage = () => {
   articleView.handleMainNav();
   articleView.setTeasers();
 };
+// This comment kicks the whole thing off after all of the scripts have finished loading.  It should run last no matter where we put it, but it seemed logical to put it at the end of the last script to get loaded to ensure all scripts and resources have been loaded before trying to render the DOM.
+$(document).ready(function() {
+  Article.fetchAll();
+});
