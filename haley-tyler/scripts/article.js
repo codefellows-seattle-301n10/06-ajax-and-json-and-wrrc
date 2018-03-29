@@ -48,7 +48,7 @@ Article.fetchAll = () => {
   } else {
     $.getJSON('/data/hackerIpsum.json')
       .then(
-        (info) => {
+        info => {
           Article.loadAll(info);
           localStorage.setItem('rawData', JSON.stringify(info));
           articleView.initIndexPage();
