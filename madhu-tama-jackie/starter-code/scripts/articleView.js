@@ -106,15 +106,16 @@ articleView.create = () => {
   $('#article-json').val(`${JSON.stringify(article)},`);
 };
 
-
 articleView.initIndexPage = () => {
   Article.all.forEach(article => {
     $('#articles').append(article.toHtml())
   });
-
-  articleView.populateFilters();
-  articleView.handleCategoryFilter();
-  articleView.handleAuthorFilter();
-  articleView.handleMainNav();
-  articleView.setTeasers();
+  $(document).ready(function (){
+    Article.fetchAll();
+    articleView.populateFilters();
+    articleView.handleCategoryFilter();
+    articleView.handleAuthorFilter();
+    articleView.handleMainNav();
+    articleView.setTeasers();
+  });
 };

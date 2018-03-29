@@ -39,6 +39,7 @@ Article.loadAll = articleData => {
   articleData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
   articleData.forEach(articleObject => Article.all.push(new Article(articleObject)))
+
 }
 
 // REVIEW: This function will retrieve the data from either a local or remote source, and process it, then hand off control to the View.
@@ -48,12 +49,14 @@ Article.fetchAll = () => {
   if (localStorage.rawData) {
     let stringifyArticles = localStorage.getItem('rawData');
     Article.all = JSON.parse(stringifyArticles);
-    
-    Article.loadAll();
-
+    Article.loadAll(localStorage.rawData);
   } else {
-    $.getJSON('/data/hackeripsum.json').then();
-    localStorage.setItem('rawData', JSON.stringify(Article.rawData));
-
+    console.log(localStorage.rawData);
+    $.getJSON('data/hackerIpsum.json').then(rawData => {
+      console.log('rawData',rawData);
+      localStorage.setItem('rawData', JSON.stringify(rawData));
+      Article.loadAll(rawData);
+      articleView.initIndexPage();
+    });
   }
 }
