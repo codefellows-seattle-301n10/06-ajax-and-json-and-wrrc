@@ -110,7 +110,6 @@ articleView.create = () => {
 articleView.initIndexPage = () => {
   Article.all.forEach(article => {
     $('#articles').append(article.toHtml())
-    console.log(article);
   });
   articleView.populateFilters();
   articleView.handleCategoryFilter();

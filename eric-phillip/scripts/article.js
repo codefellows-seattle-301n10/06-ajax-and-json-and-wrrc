@@ -48,20 +48,17 @@ Article.loadAll = articleData => {
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
   if (localStorage.rawData) {
-    let rawData = localStorage.getItem('rawData');
-    JSON.parse(rawData);
-    console.log(JSON.parse(rawData), 'FROM LOCAL STORAGE')
-    // Article.loadAll();
+    let rawData = JSON.parse(localStorage.getItem('rawData'));
+    Article.loadAll(rawData);
 
   } else {
+    // First we create an object to store the file path
+    //then we call the getJSON to retrieve the file
+    //and in the promise we take the information from the file and set it to local storage
     let dataObj = 'data/hackerIpsum.json';
     $.getJSON(dataObj)
-      .then(articleData => {
-        Article.loadAll(articleData)
-        localStorage.setItem('rawData', JSON.stringify(articleData));
-      });
+      .then(articleData => localStorage.setItem('rawData', JSON.stringify(articleData)));
   }
 }
-
 Article.fetchAll();
 

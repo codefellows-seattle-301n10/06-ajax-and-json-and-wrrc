@@ -19,7 +19,7 @@
 03-28-2018 6:10pm Answered Comments in article.js and looked over reviews
 03-28-2018 6:30pm Accessed the article and pushed it to the new constructor
 03-28-2018 8:00pm Got local storage set up.
-03-28-2018 6:00pm
+03-28-2018 8:40pm Got to load from local storage on a refresh, added more responses
 03-28-2018 6:00pm
 
 ## Credits and Collaborations
