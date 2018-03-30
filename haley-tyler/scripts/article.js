@@ -47,12 +47,11 @@ Article.fetchAll = () => {
     articleView.initIndexPage()
   } else {
     $.getJSON('/data/hackerIpsum.json')
-      .then(
-        info => {
-          Article.loadAll(info);
-          localStorage.setItem('rawData', JSON.stringify(info));
-          articleView.initIndexPage();
-        })
+    info => {
+      Article.loadAll(info);
+      localStorage.setItem('rawData', JSON.stringify(info));
+      articleView.initIndexPage();
+    }
   }
 }
 // COMMENT: if rawData exists in local storage, initiate the index page. If it does not, retrive JSON file then loadAll data and initiate index. We included <script>Article.fetchAll()</script> after all script tags because it depends on all prior scrips. 
