@@ -21,7 +21,7 @@ Article.prototype.toHtml = function() {
 
   // COMMENT: What is going on in the line below? What do the question mark and colon represent? How have we seen this same logic represented previously?
   // Not sure? Check the docs!
-  // Question mark is other way of writing an if/else statement. Another to the left of question is being checked if true. Then everything to the left of the colon gets executed. If fale everything to right gets executed.
+  // Question mark or ternary operator is other way of writing an if/else statement. Another to the left of question is being checked if true. Then everything to the left of the colon gets executed. If fale everything to right gets executed.
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   this.body = marked(this.body);
 
@@ -48,6 +48,18 @@ Article.fetchAll = () => {
     Article.loadAll();
 
   } else {
+    $.getJSON('data/hackerIpsum.json').then(article => {
+      Article.loadAll(article);
+      $('#articles').empty();
+      Article.all.forEach(article => {
+        console.log(article);
+        $('#articles').append(article.toHtml());
+      })
+
+    });
 
   }
 }
+Article.fetchAll();
+// COMMENT
+// We determined the order of execution by retrieving the data from the JSON file, then appending the files to the HTML via the forEach method. 
