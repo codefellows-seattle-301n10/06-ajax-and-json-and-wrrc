@@ -43,8 +43,8 @@ Article.loadAll = articleData => {
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
   if (localStorage.rawData) {
-    Article.loadAll(JSON.parse(localStorage.rawData));
-    articleView.initIndexPage()
+    Article.loadAll(JSON.parse(localStorage.getItem('rawData')));
+    articleView.initIndexPage();
   } else {
     $.getJSON('/data/hackerIpsum.json')
       .then(
@@ -52,7 +52,7 @@ Article.fetchAll = () => {
           Article.loadAll(info);
           localStorage.setItem('rawData', JSON.stringify(info));
           articleView.initIndexPage();
-        })
+        }).catch(err => console.error(err));
   }
 }
 // COMMENT: if rawData exists in local storage, initiate the index page. If it does not, retrive JSON file then loadAll data and initiate index. We included <script>Article.fetchAll()</script> after all script tags because it depends on all prior scrips. 
