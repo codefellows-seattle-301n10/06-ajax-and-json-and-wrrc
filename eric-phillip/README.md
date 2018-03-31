@@ -1,0 +1,26 @@
+# Project Name
+
+**Author**: Eric and Phillip
+**Version**: 1.0.0 (increment the patch/fix version number up if you make more commits past your first submission)
+
+## Overview
+<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
+
+## Getting Started
+<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+
+## Architecture
+<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+## Change Log
+<!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples: -->
+
+03-28-2018 6:00pm Set up forked repo
+03-28-2018 6:10pm Answered Comments in article.js and looked over reviews
+03-28-2018 6:30pm Accessed the article and pushed it to the new constructor
+03-28-2018 8:00pm Got local storage set up.
+03-28-2018 8:40pm Got to load from local storage on a refresh, added more responses
+03-28-2018 9:15pm Finished the lab, loading to local storage and will load
+
+## Credits and Collaborations
+<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
