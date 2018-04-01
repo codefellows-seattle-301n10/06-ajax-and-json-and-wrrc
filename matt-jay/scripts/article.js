@@ -15,14 +15,14 @@ Article.all = [];
 // Article.all = [];
 
 // COMMENT: Why isn't this method written as an arrow function?
-//Because contextual 'this' cannot be usesd in arrow functions
+//Because contextual 'this' cannot be used in arrow functions
 Article.prototype.toHtml = function() {
   let template = Handlebars.compile($('#article-template').text());
 
   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
 
   // COMMENT: What is going on in the line below? What do the question mark and colon represent? How have we seen this same logic represented previously?
-  // The previous 'if' statment has been refactord with a ternary operator
+  // The previous 'if' statement has been refactored with a ternary operator
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
   this.body = marked(this.body);
 
@@ -35,9 +35,9 @@ Article.prototype.toHtml = function() {
 
 // COMMENT: Where is this function called? What does 'rawData' represent now? How is this different from previous labs?
 
-//  rawData is now a JSON file(hackeripsum.json)
+//  rawData is now a JSON file(hackerIpsum.json)
 
-//  The function is called at line 44 as loadAll(), the rawData is now articleData, which is coming from the hackeripsum.json file. 
+//  The function is called at line 44 as loadAll(), the rawData is now articleData, which is coming from the hackerIpsum.json file.
 
 Article.loadAll = articleData => {
   articleData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
@@ -49,16 +49,17 @@ Article.loadAll = articleData => {
 Article.fetchAll = () => {
   // REVIEW: What is this 'if' statement checking for? Where was the rawData set to local storage?
 
-
   if (localStorage.rawData) {
-
-    Article.loadAll();
+    Article.loadAll(JSON.parse(localStorage.getItem('rawData')));
+    articleView.initIndexPage();
 
   } else {
-    $.getJSON('../data/hackeripsum.json')
+    $.getJSON('../data/hackerIpsum.json')
       .then( rawData => {
-        console.log('All articles: ', rawData);
-        localStorage.setItem('rawData', JSON.stringify(Article.rawData));
+        localStorage.setItem('rawData', JSON.stringify(rawData));
+
+        Article.loadAll(rawData);
+        articleView.initIndexPage();
       });
   }
 }
