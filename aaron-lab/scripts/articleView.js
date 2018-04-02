@@ -4,7 +4,7 @@ const articleView = {};
 
 articleView.populateFilters = () => {
   $('article').each(function() {
-    if (!$(this).hasClass('template')) {
+    if ($(this).hasClass('template')) {
       let val = $(this).find('address a').text();
       let optionTag = `<option value="${val}">${val}</option>`;
 
@@ -112,6 +112,7 @@ articleView.initIndexPage = () => {
     $('#articles').append(article.toHtml())
   });
 
+  Article.fetchAll();
   articleView.populateFilters();
   articleView.handleCategoryFilter();
   articleView.handleAuthorFilter();
