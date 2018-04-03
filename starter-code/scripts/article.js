@@ -48,6 +48,6 @@ Article.fetchAll = () => {
     Article.loadAll();
 
   } else {
-
+    //
   }
 }
